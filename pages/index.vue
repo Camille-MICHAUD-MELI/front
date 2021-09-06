@@ -77,7 +77,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-container>
-        <v-divider class="primary"></v-divider>
+        <v-divider class="thirdary"></v-divider>
       </v-container>
       <v-list>
         <v-list-item
@@ -101,7 +101,7 @@
       </v-list>
       <v-container>
         <v-divider
-        class="primary"
+        class="thirdary"
         >
         </v-divider>
       </v-container>

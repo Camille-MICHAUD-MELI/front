@@ -145,8 +145,10 @@
                               id="password"
                               name="password"
                               label="Password"
-                              type="password"
                               v-model="password"
+                              :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                              @click:append="() => (value = !value)"
+                              :type="value ? 'password' : 'text'"
                            ></v-text-field>
                            <v-text-field
                             name="phone"
@@ -175,6 +177,7 @@ export default {
     drawer: null,
     hover: false,
     is_focus: false,
+    value: null,
     items: [
       { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/test' },
       { title: 'Account', icon: 'mdi-account-box', route: '/test' }

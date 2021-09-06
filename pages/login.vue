@@ -133,7 +133,9 @@
                               id="password"
                               name="password"
                               label="Password"
-                              type="password"
+                              :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                              @click:append="() => (value = !value)"
+                              :type="value ? 'password' : 'text'"
                               v-model="password"
                            ></v-text-field>
                         </v-form>
@@ -157,6 +159,7 @@ export default {
     drawer: null,
     hover: false,
     is_focus: false,
+    value: null,
     email: null,
     password: null,
     items: [
