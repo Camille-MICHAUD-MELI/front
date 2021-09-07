@@ -122,19 +122,6 @@
         </div>
       </template>
     </v-navigation-drawer>
-    <v-main>
-         <v-container fluid fill-height>
-            <v-layout align-center justify-center>
-               <v-flex xs12 sm8 md4>
-                  <v-card class="elevation-12">
-                     <v-toolbar dark color="primary">
-                        <v-toolbar-title>Error 404 Page not found</v-toolbar-title>
-                     </v-toolbar>
-                  </v-card>
-               </v-flex>
-            </v-layout>
-         </v-container>
-    </v-main>
   </v-app>
 </template>
 

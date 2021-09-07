@@ -125,16 +125,19 @@
                         <v-form>
                             <v-text-field
                               name="firstname"
-                              label="Firstname"
+                              label="Pseudo"
                               type="text"
                               v-model="firstName"
                            ></v-text-field>
-                           <v-text-field
-                              name="lastname"
-                              label="Lastname"
-                              type="text"
-                              v-model="lastName"
-                           ></v-text-field>
+                           <v-container fluid>
+                              <v-textarea
+                                name="bio"
+                                filled
+                                label="Bio *"
+                                auto-grow
+                                class="pa-0 ma-0"
+                              ></v-textarea>
+                           </v-container>
                            <v-text-field
                               name="email"
                               label="Email"
@@ -156,6 +159,27 @@
                             type="text"
                             v-model="phone"
                             ></v-text-field>
+                            <v-text-field
+                            name="address"
+                            label="Address *"
+                            type="text"
+                            ></v-text-field>
+                            <v-text-field
+                            name="city"
+                            label="City *"
+                            type="text"
+                            ></v-text-field>
+                            <v-text-field
+                            name="zipcode"
+                            label="Zipcode *"
+                            type="text"
+                            ></v-text-field>
+                            <v-text-field
+                            name="country"
+                            label="Country *"
+                            type="text"
+                            ></v-text-field>
+                            * = Optional
                         </v-form>
                      </v-card-text>
                      <v-card-actions>
