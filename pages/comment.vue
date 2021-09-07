@@ -77,7 +77,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-container>
-        <v-divider class="primary"></v-divider>
+        <v-divider class="thirdary"></v-divider>
       </v-container>
       <v-list>
         <v-list-item
@@ -101,7 +101,7 @@
       </v-list>
       <v-container>
         <v-divider
-        class="primary"
+        class="thirdary"
         >
         </v-divider>
       </v-container>
@@ -123,17 +123,21 @@
       </template>
     </v-navigation-drawer>
 
-          <v-main>
+    <v-main>
          <v-container fluid fill-height>
             <v-layout align-center justify-center>
                <v-flex xs12 sm8 md4>
                   <v-card class="elevation-12">
                      <v-toolbar dark color="primary">
-                        <v-toolbar-title>Post Form</v-toolbar-title>
+                        <v-toolbar-title>Comment Form</v-toolbar-title>
                      </v-toolbar>
                      <v-card-text>
                         <v-form>
-                          <v-container fluid>
+                            <v-text-field
+                            name="title_origine"
+                            label="Title of the Original Post"
+                            type="text"
+                          ></v-text-field>
                             <v-text-field
                             name="title"
                             label="Title"
@@ -157,7 +161,6 @@
                               @click:append="() => (value = !value)"
                               :type="value ? 'password' : 'text'"
                            ></v-text-field>
-                          </v-container>
                         </v-form>
                      </v-card-text>
                      <v-card-actions>
@@ -177,11 +180,10 @@ export default {
   data: () => ({
     drawer: null,
     hover: false,
-    value: null,
     is_focus: false,
     items: [
       { title: 'Post', icon: 'mdi-view-dashboard', route: '/post' },
-      { title: 'Account', icon: 'mdi-account-box', route: '/test' }
+      { title: 'Account', icon: 'mdi-account-box', route: '/account' }
     ]
   })
 }
