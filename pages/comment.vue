@@ -183,6 +183,7 @@ export default {
     is_focus: false,
     items: [
       { title: 'Post', icon: 'mdi-view-dashboard', route: '/post' },
+      { title: 'Comment', icon: 'mdi-message-text', route: '/comment' },
       { title: 'Account', icon: 'mdi-account-box', route: '/account' }
     ]
   })

@@ -26,7 +26,6 @@
 
       <v-input
       mx-4
-      class="black--text"
       >
         <v-text-field
         v-model="click"
@@ -34,8 +33,8 @@
         @blur="is_focus = false"
         @focus="is_focus = true"
         :background-color="is_focus ? 'black' :'white'"
-        color="primary black--text"
-        class="mt-12 red--text"
+        color="primary"
+        class="mt-12"
         light
         enclosed
         outlined
@@ -63,32 +62,29 @@
 
     <v-navigation-drawer
       v-model="drawer"
-      src="https://images6.alphacoders.com/316/316600.png"
+      class="white black--text"
       width=""
       fixed
-      dark
+      light
       temporary
       right
     >
     <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6">
-            Application
+            Menu
           </v-list-item-title>
-          <v-list-item-subtitle>
-            subtext
-          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
-
-      <v-divider></v-divider>
-      <v-list rounded>
+      <v-container>
+        <v-divider class="thirdary"></v-divider>
+      </v-container>
+      <v-list>
         <v-list-item
           v-for="item in items"
           :key="item.title"
           link
         ><v-btn
-          rounded
           block
           color="primary"
           dark
@@ -103,15 +99,63 @@
 
         </v-btn></v-list-item>
       </v-list>
+      <v-container>
+        <v-divider
+        class="thirdary"
+        >
+        </v-divider>
+      </v-container>
 
       <template v-slot:append>
         <div class="pa-2">
-          <v-btn block>
-            Logout
-          </v-btn>
+          <v-hover
+          class="pr-2 ma-0"
+          v-model="hover"
+          >
+            <v-btn
+            :color="hover ? 'primary' :'white'"
+            block
+            >
+              Logout
+            </v-btn>
+          </v-hover>
         </div>
       </template>
     </v-navigation-drawer>
+
+    <v-snackbar
+      v-model="snackbar"
+      color="white black--text"
+    >
+    Your account has been registered
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="primary"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
+    <v-snackbar
+      v-model="snackbarE"
+      color="red white--text"
+    >
+    An Error as occured
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbarE = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
 
     <v-main>
          <v-container fluid fill-height>
@@ -123,62 +167,69 @@
                      </v-toolbar>
                      <v-card-text>
                         <v-form>
-                            <v-text-field
-                              name="firstname"
-                              label="Pseudo"
-                              type="text"
-                              v-model="firstName"
-                           ></v-text-field>
-                           <v-container fluid>
-                              <v-textarea
-                                name="bio"
-                                filled
-                                label="Bio *"
-                                auto-grow
-                                class="pa-0 ma-0"
-                              ></v-textarea>
-                           </v-container>
-                           <v-text-field
-                              name="email"
-                              label="Email"
-                              type="text"
-                              v-model="email"
-                           ></v-text-field>
-                           <v-text-field
-                              id="password"
-                              name="password"
-                              label="Password"
-                              v-model="password"
-                              :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
-                              @click:append="() => (value = !value)"
-                              :type="value ? 'password' : 'text'"
-                           ></v-text-field>
-                           <v-text-field
-                            name="phone"
-                            label="Phone"
-                            type="text"
-                            v-model="phone"
-                            ></v-text-field>
-                            <v-text-field
-                            name="address"
-                            label="Address *"
-                            type="text"
-                            ></v-text-field>
-                            <v-text-field
-                            name="city"
-                            label="City *"
-                            type="text"
-                            ></v-text-field>
-                            <v-text-field
-                            name="zipcode"
-                            label="Zipcode *"
-                            type="text"
-                            ></v-text-field>
-                            <v-text-field
-                            name="country"
-                            label="Country *"
-                            type="text"
-                            ></v-text-field>
+                <v-text-field
+                    name="pseudo"
+                    label="Pseudo"
+                    type="text"
+                    v-model="pseudo"
+                    required
+                ></v-text-field>
+                <v-text-field
+                    name="email"
+                    label="Email"
+                    type="text"
+                    v-model="email"
+                    required
+                ></v-text-field>
+                <v-container fluid>
+                <v-textarea
+                    name="bio"
+                    label="Bio *"
+                    type="text"
+                    v-model="bio"
+                ></v-textarea>
+                </v-container>
+                <span class="material-icons">
+                <v-text-field
+                    id="password"
+                    name="password"
+                    label="Password"
+                    v-model="password"
+                    :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="() => (value = !value)"
+                    :type="value ? 'password' : 'text'"
+                ></v-text-field>
+                  </span>
+                <v-text-field
+                    name="phone"
+                    label="Phone *"
+                    type="text"
+                    v-model="phone"
+                ></v-text-field>
+                <v-text-field
+                    name="city"
+                    label="City *"
+                    type="text"
+                    v-model="city"
+                ></v-text-field>
+                <v-text-field
+                    name="address"
+                    label="Address *"
+                    type="text"
+                    v-model="address"
+                ></v-text-field>
+                <v-text-field
+                    name="zipcode"
+                    label="Zipcode *"
+                    type="text"
+                    v-model="zipcode"
+                ></v-text-field>
+                <v-text-field
+                  name="country"
+                  label="Country *"
+                  type="text"
+                  v-model="country"
+                ></v-text-field>
                             * = Optional
                         </v-form>
                      </v-card-text>
@@ -197,32 +248,45 @@
 
 <script>
 export default {
+  name: 'Register',
   data: () => ({
+    snackbar: false,
+    snackbarE: false,
     drawer: null,
     hover: false,
     is_focus: false,
     value: null,
     items: [
-      { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/test' },
-      { title: 'Account', icon: 'mdi-account-box', route: '/test' }
+      { title: 'Post', icon: 'mdi-view-dashboard', route: '/post' },
+      { title: 'Comment', icon: 'mdi-message-text', route: '/comment' },
+      { title: 'Account', icon: 'mdi-account-box', route: '/account' }
     ]
   }),
   methods: {
-    async signupHandler () {
+    signupHandler () {
       const data = {
-        first_name: this.firstName,
-        last_name: this.lastName,
         email: this.email,
         password: this.password,
-        phone: this.phone
+        zipcode: this.zipcode,
+        city: this.city,
+        phone: this.phone,
+        pseudo: this.pseudo,
+        bio: this.bio,
+        country: this.country,
+        address: this.address
       }
       console.log(data)
-      try {
-        const res = await this.$axios.post('/register', data)
-        console.log(res)
-      } catch (e) {
-        console.log(e.message)
-      }
+      this.$axios.post('http://127.0.0.1:8000/register', data).then((result) => {
+        console.log(result)
+        this.snackbar = true
+        setTimeout(() => {
+          this.$router.push('/login')
+        }, 2000)
+      })
+        .catch((error) => {
+          console.log(error)
+          this.snackbarE = true
+        })
     }
   }
 }

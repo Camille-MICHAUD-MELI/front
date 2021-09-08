@@ -77,7 +77,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-container>
-        <v-divider class="primary"></v-divider>
+        <v-divider class="thirdary"></v-divider>
       </v-container>
       <v-list>
         <v-list-item
@@ -101,7 +101,7 @@
       </v-list>
       <v-container>
         <v-divider
-        class="primary"
+        class="thirdary"
         >
         </v-divider>
       </v-container>
@@ -181,7 +181,8 @@ export default {
     is_focus: false,
     items: [
       { title: 'Post', icon: 'mdi-view-dashboard', route: '/post' },
-      { title: 'Account', icon: 'mdi-account-box', route: '/test' }
+      { title: 'Comment', icon: 'mdi-message-text', route: '/comment' },
+      { title: 'Account', icon: 'mdi-account-box', route: '/account' }
     ]
   })
 }

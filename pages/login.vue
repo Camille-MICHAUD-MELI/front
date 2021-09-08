@@ -26,7 +26,6 @@
 
       <v-input
       mx-4
-      class="black--text"
       >
         <v-text-field
         v-model="click"
@@ -34,8 +33,8 @@
         @blur="is_focus = false"
         @focus="is_focus = true"
         :background-color="is_focus ? 'black' :'white'"
-        color="primary black--text"
-        class="mt-12 red--text"
+        color="primary"
+        class="mt-12"
         light
         enclosed
         outlined
@@ -63,32 +62,29 @@
 
     <v-navigation-drawer
       v-model="drawer"
-      src="https://images6.alphacoders.com/316/316600.png"
+      class="white black--text"
       width=""
       fixed
-      dark
+      light
       temporary
       right
     >
     <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6">
-            Application
+            Menu
           </v-list-item-title>
-          <v-list-item-subtitle>
-            subtext
-          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
-
-      <v-divider></v-divider>
-      <v-list rounded>
+      <v-container>
+        <v-divider class="thirdary"></v-divider>
+      </v-container>
+      <v-list>
         <v-list-item
           v-for="item in items"
           :key="item.title"
           link
         ><v-btn
-          rounded
           block
           color="primary"
           dark
@@ -103,12 +99,26 @@
 
         </v-btn></v-list-item>
       </v-list>
+      <v-container>
+        <v-divider
+        class="thirdary"
+        >
+        </v-divider>
+      </v-container>
 
       <template v-slot:append>
         <div class="pa-2">
-          <v-btn block>
-            Logout
-          </v-btn>
+          <v-hover
+          class="pr-2 ma-0"
+          v-model="hover"
+          >
+            <v-btn
+            :color="hover ? 'primary' :'white'"
+            block
+            >
+              Logout
+            </v-btn>
+          </v-hover>
         </div>
       </template>
     </v-navigation-drawer>
@@ -163,22 +173,26 @@ export default {
     email: null,
     password: null,
     items: [
-      { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/test' },
-      { title: 'Account', icon: 'mdi-account-box', route: '/test' }
+      { title: 'Post', icon: 'mdi-view-dashboard', route: '/post' },
+      { title: 'Comment', icon: 'mdi-message-text', route: '/comment' },
+      { title: 'Account', icon: 'mdi-account-box', route: '/account' }
     ]
   }),
   methods: {
-    async loginHandler () {
-      const data = { email: this.email, password: this.password }
-      console.log(data)
-      try {
-        const response = await this.$auth.loginWith('local', data)
-        console.log(response)
-        this.$auth.$storage.setUniversal('email', response.data.email)
-        await this.$auth.setUserToken(response.data.access_token, response.data.refresh_token)
-      } catch (e) {
-        console.log(e.message)
+    loginHandler () {
+      const data = {
+        email: this.email,
+        password: this.password
       }
+      console.log(data)
+      console.log(data)
+      this.$axios.get('http://127.0.0.1:8000/login', data).then((result) => {
+        console.log(result)
+        this.$router.push('/index')
+      })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   }
 }
