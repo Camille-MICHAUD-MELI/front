@@ -133,7 +133,7 @@
           color="primary"
           text
           v-bind="attrs"
-          @click="snackbar = false"
+          @click="snackbarz = false"
         >
           Close
         </v-btn>
@@ -197,7 +197,7 @@
                     v-model="password"
                     :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
                     @click:append="() => (value = !value)"
-                    :type="value ? 'password' : 'text'"
+                    :type="value ? 'text' : 'password'"
                 ></v-text-field>
                   </span>
                 <v-text-field

@@ -123,6 +123,23 @@
       </template>
     </v-navigation-drawer>
 
+    <v-snackbar
+      v-model="snackbar"
+      color="red white--text"
+    >
+    Wrong Email or password, please try again.
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
     <v-main>
          <v-container fluid fill-height>
             <v-layout align-center justify-center>
@@ -145,7 +162,7 @@
                               label="Password"
                               :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
                               @click:append="() => (value = !value)"
-                              :type="value ? 'password' : 'text'"
+                              :type="value ? 'text' : 'password'"
                               v-model="password"
                            ></v-text-field>
                         </v-form>
@@ -166,6 +183,7 @@
 <script>
 export default {
   data: () => ({
+    snackbar: false,
     drawer: null,
     hover: false,
     is_focus: false,
@@ -186,12 +204,13 @@ export default {
       }
       console.log(data)
       console.log(data)
-      this.$axios.get('http://127.0.0.1:8000/login', data).then((result) => {
+      this.$axios.post('http://127.0.0.1:8000/login', data).then((result) => {
         console.log(result)
-        this.$router.push('/index')
+        this.$router.push('/')
       })
         .catch((error) => {
           console.log(error)
+          this.snackbar = true
         })
     }
   }
