@@ -127,6 +127,7 @@
 
 <script>
 export default {
+  middleware: 'auth',
   data: () => ({
     drawer: null,
     hover: false,

@@ -129,6 +129,10 @@
                   <v-card class="elevation-12">
                      <v-toolbar dark color="primary">
                         <v-toolbar-title>Error 404 Page not found</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-btn icon>
+                          <nuxt-link class="white--" to="/"><v-icon color="white">mdi-home</v-icon></nuxt-link>
+                        </v-btn>
                      </v-toolbar>
                   </v-card>
                </v-flex>

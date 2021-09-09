@@ -48,9 +48,9 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
 
-  router: {
+  /*router: {
     middleware: ['auth']
-  },
+  },*/
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
