@@ -204,7 +204,7 @@ export default {
       }
       console.log(data)
       console.log(data)
-      this.$axios.post('http://127.0.0.1:8000/login', data).then((result) => {
+      this.$axios.post('http://127.0.0.1:8000/login_check', data).then((result) => {
         console.log(result)
         this.$router.push('/')
       })
