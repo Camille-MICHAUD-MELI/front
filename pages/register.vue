@@ -171,7 +171,7 @@
                     name="pseudo"
                     label="Pseudo"
                     type="text"
-                    v-model="pseudo"
+                    v-model="username"
                     required
                 ></v-text-field>
                 <v-text-field
@@ -270,7 +270,7 @@ export default {
         zipcode: this.zipcode,
         city: this.city,
         phone: this.phone,
-        pseudo: this.pseudo,
+        username: this.username,
         bio: this.bio,
         country: this.country,
         address: this.address

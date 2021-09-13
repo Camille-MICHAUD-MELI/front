@@ -151,10 +151,10 @@
                      <v-card-text>
                         <v-form>
                            <v-text-field
-                              name="email"
-                              label="Email"
+                              name="username"
+                              label="Username"
                               type="text"
-                              v-model="email"
+                              v-model="username"
                            ></v-text-field>
                            <v-text-field
                               id="password"
@@ -199,7 +199,7 @@ export default {
   methods: {
     loginHandler () {
       const data = {
-        email: this.email,
+        username: this.username,
         password: this.password
       }
       console.log(data)
