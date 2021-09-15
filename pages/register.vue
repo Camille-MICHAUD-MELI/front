@@ -10,6 +10,40 @@
       <v-icon>mdi-triangle</v-icon>
     </v-system-bar>
 
+    <v-snackbar
+      v-model="snackbar"
+      color="white black--text"
+    >
+    Your account has been registered
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="primary"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
+    <v-snackbar
+      v-model="snackbarE"
+      color="red white--text"
+    >
+    An Error as occured
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbarE = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
     <v-main>
          <v-container fluid fill-height>
             <v-layout align-center justify-center>
