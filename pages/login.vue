@@ -76,6 +76,7 @@ export default {
       localStorage.token = newToken
     }
   },
+
   methods: {
     loginHandler () {
       const data = {
@@ -83,8 +84,7 @@ export default {
         password: this.password
       }
       console.log(data)
-      console.log(data)
-      this.$axios.post('http://127.0.0.1:8000/login_check', data).then((result) => {
+      this.$auth.loginWith('local', { data }).then((result) => {
         console.log(result)
         this.$store.commit('setToken', result.data.token)
         this.$router.push('/')
