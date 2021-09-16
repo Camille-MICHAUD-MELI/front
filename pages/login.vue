@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-system-bar class="thirdary" app>
+    <v-system-bar class="primary" app>
       <v-spacer></v-spacer>
 
       <v-icon>mdi-square</v-icon>

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-system-bar class="thirdary" app>
+    <v-system-bar class="primary" app>
       <v-spacer></v-spacer>
 
       <v-icon>mdi-square</v-icon>
@@ -51,11 +51,12 @@
           class="ma-2"
           outlined
           :color="hover ? 'primary' :'black'"
-          :disabled="$auth ? 'false' :'true'"
+          :disabled="$auth.user !== null"
         >
           <nuxt-link
           class="white--"
           to="/login"
+          style="text-decoration: none"
           >{{ $auth.user ? 'CONNECTÉ' :'CONNEXION' }}</nuxt-link>
         </v-btn>
       </v-hover>
@@ -78,6 +79,9 @@
           <v-list-item-title class="text-h6">
             Menu
           </v-list-item-title>
+          <v-list-item-subtitle>
+            {{ $auth.user ? "Bienvenue " + $auth.user.username :'' }}
+          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-container>
@@ -119,6 +123,7 @@
             <v-btn
             :color="hover ? 'primary' :'white'"
             block
+            @click="logout"
             >
               Logout
             </v-btn>
@@ -141,6 +146,13 @@ export default {
       { title: 'Comment', icon: 'mdi-message-text', route: '/comment' },
       { title: 'Account', icon: 'mdi-account-box', route: '/account' }
     ]
-  })
+  }),
+  methods: {
+    async logout () {
+      await this.$auth.logout().then(() => {
+        this.$router.push('/login')
+      })
+    }
+  }
 }
 </script>
