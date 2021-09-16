@@ -51,8 +51,12 @@
           class="ma-2"
           outlined
           :color="hover ? 'primary' :'black'"
+          :disabled="$auth ? 'false' :'true'"
         >
-          <nuxt-link class="white--" to="/login">CONNEXION</nuxt-link>
+          <nuxt-link
+          class="white--"
+          to="/login"
+          >{{ $auth.user ? 'CONNECTÉ' :'CONNEXION' }}</nuxt-link>
         </v-btn>
       </v-hover>
 

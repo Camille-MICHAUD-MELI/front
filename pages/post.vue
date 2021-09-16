@@ -10,6 +10,40 @@
       <v-icon>mdi-triangle</v-icon>
     </v-system-bar>
 
+   <v-snackbar
+      v-model="snackbar"
+      color="white black--text"
+    >
+    Your message has been posted
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="primary"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
+    <v-snackbar
+      v-model="snackbarE"
+      color="red white--text"
+    >
+    An Error as occured
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbarE = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
           <v-main>
          <v-container fluid fill-height>
             <v-layout align-center justify-center>
@@ -25,6 +59,7 @@
                             name="title"
                             label="Title"
                             type="text"
+                            v-model="title"
                             ></v-text-field>
                            <v-container fluid>
                               <v-textarea
@@ -33,6 +68,7 @@
                                 label="Message"
                                 auto-grow
                                 class="pa-0 ma-0"
+                                v-model="corpse"
                               ></v-textarea>
                            </v-container>
                            <v-text-field
@@ -49,7 +85,7 @@
                      </v-card-text>
                      <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" @click="loginHandler">POST</v-btn>
+                        <v-btn color="primary" @click="postHandler">POST</v-btn>
                      </v-card-actions>
                   </v-card>
                </v-flex>
@@ -62,6 +98,8 @@
 <script>
 export default {
   data: () => ({
+    snackbar: false,
+    snackbarE: false,
     drawer: null,
     hover: false,
     value: null,
@@ -71,6 +109,27 @@ export default {
       { title: 'Comment', icon: 'mdi-message-text', route: '/comment' },
       { title: 'Account', icon: 'mdi-account-box', route: '/account' }
     ]
-  })
+  }),
+  methods: {
+    signupHandler () {
+      const data = {
+        title: this.title,
+        corpse: this.corpse,
+        password: this.password
+      }
+      console.log(data)
+      this.$axios.post('http://127.0.0.1:8000/post', data).then((result) => {
+        console.log(result)
+        this.snackbar = true
+        setTimeout(() => {
+          this.$router.push('/')
+        }, 2000)
+      })
+        .catch((error) => {
+          console.log(error)
+          this.snackbarE = true
+        })
+    }
+  }
 }
 </script>

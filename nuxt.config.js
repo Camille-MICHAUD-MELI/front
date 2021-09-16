@@ -69,9 +69,9 @@ export default {
           // autoFetch: true
         },
         endpoints: {
+          user: { url: '/gettokenuser', method: 'get' },
           login: { url: '/login_check', method: 'post' },
-          logout: { url: '/api/auth/logout', method: 'post' },
-          user: { url: '/gettokenuser', method: 'get' }
+          logout: { url: '/logout', method: 'post' }
         }
       }
     }
