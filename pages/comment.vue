@@ -24,11 +24,13 @@
                             name="title_origine"
                             label="Title of the Original Post"
                             type="text"
+                            v-model="post_title"
                           ></v-text-field>
                             <v-text-field
                             name="title"
                             label="Title"
                             type="text"
+                            v-model="title"
                             ></v-text-field>
                            <v-container fluid>
                               <v-textarea
@@ -37,22 +39,14 @@
                                 label="Message"
                                 auto-grow
                                 class="pa-0 ma-0"
+                                v-model="corpse"
                               ></v-textarea>
                            </v-container>
-                           <v-text-field
-                              id="password"
-                              name="password"
-                              label="Password"
-                              v-model="password"
-                              :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
-                              @click:append="() => (value = !value)"
-                              :type="value ? 'password' : 'text'"
-                           ></v-text-field>
                         </v-form>
                      </v-card-text>
                      <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" @click="loginHandler">POST</v-btn>
+                        <v-btn color="primary" @click="commentHandler">POST</v-btn>
                      </v-card-actions>
                   </v-card>
                </v-flex>
@@ -73,6 +67,27 @@ export default {
       { title: 'Comment', icon: 'mdi-message-text', route: '/comment' },
       { title: 'Account', icon: 'mdi-account-box', route: '/account' }
     ]
-  })
+  }),
+  methods: {
+    commentHandler () {
+      const data = {
+        title: this.title,
+        post_title: this.post_title,
+        corpse: this.corpse
+      }
+      console.log(data)
+      this.$axios.post('http://127.0.0.1:8000/commentpost', data).then((result) => {
+        console.log(result)
+        this.snackbar = true
+        setTimeout(() => {
+          this.$router.push('/')
+        }, 2000)
+      })
+        .catch((error) => {
+          console.log(error)
+          this.snackbarE = true
+        })
+    }
+  }
 }
 </script>
