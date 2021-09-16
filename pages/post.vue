@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-system-bar class="thirdary" app>
+    <v-system-bar class="primary" app>
       <v-spacer></v-spacer>
 
       <v-icon>mdi-square</v-icon>
@@ -71,15 +71,6 @@
                                 v-model="corpse"
                               ></v-textarea>
                            </v-container>
-                           <v-text-field
-                              id="password"
-                              name="password"
-                              label="Password"
-                              v-model="password"
-                              :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
-                              @click:append="() => (value = !value)"
-                              :type="value ? 'password' : 'text'"
-                           ></v-text-field>
                           </v-container>
                         </v-form>
                      </v-card-text>
@@ -111,14 +102,13 @@ export default {
     ]
   }),
   methods: {
-    signupHandler () {
+    postHandler () {
       const data = {
         title: this.title,
-        corpse: this.corpse,
-        password: this.password
+        corpse: this.corpse
       }
       console.log(data)
-      this.$axios.post('http://127.0.0.1:8000/post', data).then((result) => {
+      this.$axios.post('http://127.0.0.1:8000/messagepost', data).then((result) => {
         console.log(result)
         this.snackbar = true
         setTimeout(() => {
