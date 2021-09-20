@@ -91,6 +91,8 @@ export default {
   data: () => ({
     snackbar: false,
     snackbarE: false,
+    corpse: null,
+    title: null,
     drawer: null,
     hover: false,
     value: null,

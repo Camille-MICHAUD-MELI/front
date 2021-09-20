@@ -51,7 +51,7 @@
           class="ma-2"
           outlined
           :color="hover ? 'primary' :'black'"
-          :disabled="$auth.user !== null"
+          :disabled="$auth.user ? true : false"
         >
           <nuxt-link
           class="white--"
@@ -139,6 +139,7 @@
 export default {
   data: () => ({
     drawer: null,
+    click: null,
     hover: false,
     is_focus: false,
     items: [

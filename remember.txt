@@ -1,0 +1,6 @@
+<v-text-field
+            value="John Doe"
+            label="Solo"
+            solo
+            readonly
+          ></v-text-field>

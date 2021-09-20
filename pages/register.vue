@@ -59,6 +59,7 @@
                     label="Pseudo"
                     type="text"
                     v-model="username"
+                    counter="25"
                     required
                 ></v-text-field>
                 <v-text-field
@@ -135,6 +136,7 @@
 
 <script>
 export default {
+  auth: false,
   name: 'Register',
   data: () => ({
     snackbar: false,
@@ -142,6 +144,7 @@ export default {
     drawer: null,
     hover: false,
     is_focus: false,
+    username: '',
     value: null,
     items: [
       { title: 'Post', icon: 'mdi-view-dashboard', route: '/post' },

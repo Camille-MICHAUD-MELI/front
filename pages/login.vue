@@ -58,6 +58,7 @@ export default {
     is_focus: false,
     value: null,
     email: null,
+    username: null,
     token: '',
     password: null,
     items: [
