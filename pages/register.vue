@@ -136,6 +136,11 @@
 
 <script>
 export default {
+  mounted () {
+    if (this.$auth.user !== null) {
+      this.$router.push('/')
+    }
+  },
   auth: false,
   name: 'Register',
   data: () => ({

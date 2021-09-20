@@ -10,6 +10,40 @@
       <v-icon>mdi-triangle</v-icon>
     </v-system-bar>
 
+    <v-snackbar
+      v-model="snackbar"
+      color="white black--text"
+    >
+    Your account has been registered
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="primary"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
+    <v-snackbar
+      v-model="snackbarE"
+      color="red white--text"
+    >
+    An Error as occured
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbarE = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
   <v-main>
     <v-container fluid fill-height>
       <v-layout align-center justify-center>
@@ -110,7 +144,11 @@
               ><v-icon>mdi-close</v-icon>
               </v-btn></nuxt-link>
               <v-spacer></v-spacer>
-              <v-btn color="primary" @click="account_change">Change modifications</v-btn>
+              <v-btn
+              color="primary"
+              @click="accountChange"
+              id="$auth.user.id"
+              >Change modifications</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -138,15 +176,35 @@ export default {
       { title: 'Post', icon: 'mdi-view-dashboard', route: '/post' },
       { title: 'Comment', icon: 'mdi-message-text', route: '/comment' },
       { title: 'Account', icon: 'mdi-account-box', route: '/account' }
-    ],
-    computed: {
-      progress () {
-        return Math.min(100, this.value.length * 10)
-      },
-      color () {
-        return ['error', 'warning', 'success'][Math.floor(this.progress / 40)]
+    ]
+  }),
+  methods: {
+    accountChange () {
+      const data = {
+        username: this.username,
+        email: this.email,
+        bio: this.bio,
+        password: this.password,
+        phone: this.phone,
+        city: this.city,
+        address: this.address,
+        zipcode: this.zipcode,
+        country: this.country,
+        id: this.id
       }
+      console.log(data)
+      this.$axios.patch('http://127.0.0.1:8000/users', data).then((result) => {
+        console.log(result)
+        this.snackbar = true
+        setTimeout(() => {
+          this.$router.push('/account')
+        }, 2000)
+      })
+        .catch((error) => {
+          console.log(error)
+          this.snackbarE = true
+        })
     }
-  })
+  }
 }
 </script>

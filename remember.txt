@@ -4,3 +4,5 @@
             solo
             readonly
           ></v-text-field>
+
+Rest\Patch("/users/{id}")
