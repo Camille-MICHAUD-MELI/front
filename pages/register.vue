@@ -136,11 +136,6 @@
 
 <script>
 export default {
-  mounted () {
-    if (this.$auth.user !== null) {
-      this.$router.push('/')
-    }
-  },
   auth: false,
   name: 'Register',
   data: () => ({
@@ -157,6 +152,11 @@ export default {
       { title: 'Account', icon: 'mdi-account-box', route: '/account' }
     ]
   }),
+  mounted () {
+    if (this.$auth.user !== null) {
+      this.$router.push('/')
+    }
+  },
   methods: {
     signupHandler () {
       const data = {

@@ -79,6 +79,12 @@
                     outlined
                     readonly
                 ></v-text-field>
+                <v-text-field
+                    :value="$auth.user && $auth.user.created !== null ? $auth.user.created :''"
+                    label="Created"
+                    outlined
+                    readonly
+                ></v-text-field>
                         </v-form>
                      </v-card-text>
                      <v-card-actions>

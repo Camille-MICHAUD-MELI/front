@@ -14,7 +14,7 @@
       v-model="snackbar"
       color="white black--text"
     >
-    Your account has been registered
+    Modification has been done
       <template v-slot:action="{ attrs }">
         <v-btn
           color="primary"
@@ -58,7 +58,7 @@
                   name="pseudo"
                   label="Pseudo"
                   type="text"
-                  v-model="username"
+                  v-model="user"
                   counter="25"
                   :placeholder="$auth.user ? $auth.user.username : ''"
                   value="For example, flowers or used cars"
@@ -189,16 +189,42 @@ export default {
         city: this.city,
         address: this.address,
         zipcode: this.zipcode,
-        country: this.country,
-        id: this.id
+        country: this.country
+      }
+      if (data.username === null) {
+        data.username = this.$auth.user.username
+      }
+      if (data.email === null) {
+        data.email = this.$auth.user.email
+      }
+      if (data.bio === null) {
+        data.bio = this.$auth.user.bio
+      }
+      if (data.password === null) {
+        data.password = this.$auth.user.password
+      }
+      if (data.phone === null) {
+        data.phone = this.$auth.user.phone
+      }
+      if (data.city === null) {
+        data.city = this.$auth.user.city
+      }
+      if (data.address === null) {
+        data.address = this.$auth.user.address
+      }
+      if (data.zipcode === null) {
+        data.zipcode = this.$auth.user.zipcode
+      }
+      if (data.country === null) {
+        data.country = this.$auth.user.country
       }
       console.log(data)
-      this.$axios.patch('http://127.0.0.1:8000/users', data).then((result) => {
+      this.$axios.patch('http://127.0.0.1:8000/users/' + this.$auth.user.id, data).then((result) => {
         console.log(result)
         this.snackbar = true
         setTimeout(() => {
           this.$router.push('/account')
-        }, 2000)
+        }, 3000)
       })
         .catch((error) => {
           console.log(error)
