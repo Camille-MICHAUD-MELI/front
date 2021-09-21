@@ -152,7 +152,7 @@ export default {
       { title: 'Account', icon: 'mdi-account-box', route: '/account' }
     ]
   }),
-  mounted () {
+  created () {
     if (this.$auth.user !== null) {
       this.$router.push('/')
     }
