@@ -22,104 +22,68 @@
           v-bind="attrs"
           v-on="on"
         >
-          Open Dialog
         </v-btn>
       </template>
       <v-card>
-        <v-card-title>
-          <span class="text-h5">User Profile</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
-              >
-                <v-text-field
-                  label="Legal first name*"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
-              >
-                <v-text-field
-                  label="Legal middle name"
-                  hint="example of helper text only on focus"
-                ></v-text-field>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
-              >
-                <v-text-field
-                  label="Legal last name*"
-                  hint="example of persistent helper text"
-                  persistent-hint
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  label="Email*"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  label="Password*"
-                  type="password"
-                  required
-                ></v-text-field>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-              >
-                <v-select
-                  :items="['0-17', '18-29', '30-54', '54+']"
-                  label="Age*"
-                  required
-                ></v-select>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-              >
-                <v-autocomplete
-                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                  label="Interests"
-                  multiple
-                ></v-autocomplete>
-              </v-col>
-            </v-row>
-          </v-container>
-          <small>*indicates required field</small>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-          >
-            Close
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-          >
-            Save
-          </v-btn>
-        </v-card-actions>
+          <v-toolbar dark color="primary">
+              <v-toolbar-title class="text-h5">Comment Form</v-toolbar-title>
+          </v-toolbar>
+          <v-container fluid>
+            <v-text-field
+            name="title"
+            label="Title"
+            type="text"
+            v-model="title"
+            ></v-text-field>
+            <v-container fluid>
+                <v-textarea
+                name="corpse"
+                filled
+                label="Message"
+                auto-grow
+                class="pa-0 ma-0"
+                v-model="corpse"
+                ></v-textarea>
+            </v-container>
+            <v-btn icon><v-icon color="red" @click="dialog = !dialog">mdi-close</v-icon></v-btn>
+            <v-btn color="primary white--text" @click="commentHandler">SEND</v-btn>
+        </v-container>
       </v-card>
     </v-dialog>
+
+    <v-snackbar
+      v-model="snackbar"
+      color="white black--text"
+    >
+    Your comment has been posted
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="primary"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
+    <v-snackbar
+      v-model="snackbarE"
+      color="red white--text"
+    >
+    An Error as occured
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbarE = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
 
     <v-main>
         <v-container fluid fill-height>
@@ -169,11 +133,35 @@
 <script>
 export default {
   data: () => ({
+    title: null,
+    corpse: null,
+    snackbar: false,
+    snackbarE: false,
     dialog: false,
     click: null,
     test: 6,
     like_color: null,
     comment_color: null
-  })
+  }),
+  methods: {
+    commentHandler () {
+      const data = {
+        title: this.title,
+        corpse: this.corpse
+      }
+      console.log(data)
+      this.$axios.post('http://127.0.0.1:8000/commentpost', data).then((result) => {
+        console.log(result)
+        this.snackbar = true
+        setTimeout(() => {
+          location.reload()
+        }, 2000)
+      })
+        .catch((error) => {
+          console.log(error)
+          this.snackbarE = true
+        })
+    }
+  }
 }
 </script>

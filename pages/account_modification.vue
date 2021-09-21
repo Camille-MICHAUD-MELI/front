@@ -58,17 +58,16 @@
                   name="pseudo"
                   label="Pseudo"
                   type="text"
-                  v-model="user"
                   counter="25"
+                  :value="$auth.user ? $auth.user.username :''"
                   :placeholder="$auth.user ? $auth.user.username : ''"
-                  value="For example, flowers or used cars"
                   required
               ></v-text-field>
               <v-text-field
                   name="email"
                   label="Email"
                   type="text"
-                  v-model="email"
+                  :value="$auth.user ? $auth.user.email :''"
                   :placeholder="$auth.user ? $auth.user.email : ''"
                   required
               ></v-text-field>
@@ -79,8 +78,8 @@
                 type="text"
                 clearable="true"
                 autocomplete="test"
+                :value="$auth.user ? $auth.user.bio :''"
                 :placeholder="$auth.user ? $auth.user.bio : ''"
-                v-model="bio"
               ></v-textarea>
               </v-container>
               <span class="material-icons">
@@ -100,36 +99,36 @@
                   name="phone"
                   label="Phone"
                   type="text"
+                  :value="$auth.user ? $auth.user.phone :''"
                   :placeholder="$auth.user ? $auth.user.phone : ''"
-                  v-model="phone"
               ></v-text-field>
               <v-text-field
                   name="city"
                   label="City"
                   type="text"
                   :placeholder="$auth.user ? $auth.user.city : ''"
-                  v-model="city"
+                  :value="$auth.user ? $auth.user.city :''"
               ></v-text-field>
               <v-text-field
                   name="address"
                   label="Address"
                   type="text"
                   :placeholder="$auth.user ? $auth.user.address : ''"
-                  v-model="address"
+                  :value="$auth.user ? $auth.user.address :''"
               ></v-text-field>
               <v-text-field
                   name="zipcode"
                   label="Zipcode"
                   :placeholder="$auth.user ? $auth.user.zipcode : ''"
                   type="text"
-                  v-model="zipcode"
+                  :value="$auth.user ? $auth.user.zipcode :''"
               ></v-text-field>
               <v-text-field
                 name="country"
                 label="Country"
                 type="text"
                 :placeholder="$auth.user ? $auth.user.country : ''"
-                v-model="country"
+                :value="$auth.user ? $auth.user.country :''"
               ></v-text-field>
               </v-form>
             </v-card-text>
