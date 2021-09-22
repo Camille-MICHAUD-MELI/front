@@ -40,15 +40,6 @@
                     readonly
                 ></v-textarea>
                 </v-container>
-                <span class="material-icons">
-                <v-text-field
-                    :value="$auth.user ? $auth.user.password :''"
-                    label="Password"
-                    outlined
-                    readonly
-                    type="password"
-                ></v-text-field>
-                  </span>
                 <v-text-field
                     :value="$auth.user ? $auth.user.phone :''"
                     label="Phone"

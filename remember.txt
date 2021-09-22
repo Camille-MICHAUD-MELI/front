@@ -6,3 +6,8 @@
           ></v-text-field>
 
 Rest\Patch("/users/{id}")
+
+.catch((error) => {
+          console.log(error)
+          this.$router.push('/error')
+        })
