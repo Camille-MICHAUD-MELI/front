@@ -11,7 +11,7 @@
     </v-system-bar>
 
     <v-dialog
-      v-model="dialog"
+      v-model="dialogb"
       persistent
       max-width="600px"
     >
@@ -45,8 +45,48 @@
                 v-model="corpse"
                 ></v-textarea>
             </v-container>
-            <v-btn icon><v-icon color="red" @click="dialog = !dialog">mdi-close</v-icon></v-btn>
+            <v-btn icon><v-icon color="red" @click="dialogb = !dialogb">mdi-close</v-icon></v-btn>
             <v-btn color="primary white--text" @click="commentHandler">SEND</v-btn>
+        </v-container>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog
+      v-model="dialog"
+      persistent
+      max-width="600px"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="primary"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+        </v-btn>
+      </template>
+      <v-card>
+          <v-toolbar dark color="primary">
+              <v-toolbar-title class="text-h5">Modification Form</v-toolbar-title>
+          </v-toolbar>
+          <v-container fluid>
+            <v-text-field
+            name="title"
+            label="Title"
+            type="text"
+            ></v-text-field>
+            <v-container fluid>
+                <v-textarea
+                name="corpse"
+                filled
+                label="Message"
+                auto-grow
+                class="pa-0 ma-0"
+                v-model="corpse"
+                ></v-textarea>
+            </v-container>
+            <v-btn icon><v-icon color="red" @click="dialog = !dialog">mdi-close</v-icon></v-btn>
+            <v-btn color="primary white--text" @click="patchpostHandler">EDIT</v-btn>
         </v-container>
       </v-card>
     </v-dialog>
@@ -55,7 +95,7 @@
       v-model="snackbar"
       color="white black--text"
     >
-    Your comment has been posted
+    Your modification has been done
       <template v-slot:action="{ attrs }">
         <v-btn
           color="primary"
@@ -134,9 +174,9 @@
                      <v-btn
                      icon
                      >
-                         <v-icon @click="dialog = !dialog">mdi-message-text</v-icon>
+                         <v-icon @click="dialogb = !dialogb">mdi-message-text</v-icon>
                      </v-btn>
-                     <nuxt-link style="text-decoration: none; color: #FFFFFF" :to="'/modify_text/' + $route.params.id"><v-flex align-self-center><v-btn v-if="$auth.user.id === message.user.id" color="primary"><v-icon left>mdi-pencil</v-icon>Edit</v-btn></v-flex></nuxt-link>
+                     <v-flex align-self-center><v-btn @click="dialog = !dialog" v-if="$auth.user.id === message.user.id" color="primary"><v-icon left>mdi-pencil</v-icon>Edit</v-btn></v-flex>
                      </v-col>
                     </v-card>
                 </v-flex>
@@ -159,21 +199,36 @@ export default {
     snackbar: false,
     snackbarE: false,
     dialog: false,
+    dialogb: false,
     click: null,
     test: 6,
     like_color: null,
     comment_color: null
   }),
   methods: {
-    postHandler () {
-      this.$axios.get('http://127.0.0.1:8000/message/' + this.$route.params.id).then((result) => {
+    patchpostHandler () {
+      const data = {
+        title: this.title,
+        corpse: this.corpse
+      }
+      if (data.title === null) {
+        data.title = this.message.title
+      }
+      if (data.corpse === null) {
+        data.corpse = this.message.corpse
+      }
+      console.log(data)
+      this.$axios.patch('http://127.0.0.1:8000/message/' + this.$route.params.id, data).then((result) => {
         console.log(result)
-        this.message = result.data
-        this.loading = false
+        this.snackbar = true
+        this.dialog = false
+        setTimeout(() => {
+          location.reload()
+        }, 2000)
       })
         .catch((error) => {
           console.log(error)
-          this.$router.push('/error')
+          this.snackbarE = true
         })
     },
     commentHandler () {
@@ -192,6 +247,17 @@ export default {
         .catch((error) => {
           console.log(error)
           this.snackbarE = true
+        })
+    },
+    postHandler () {
+      this.$axios.get('http://127.0.0.1:8000/message/' + this.$route.params.id).then((result) => {
+        console.log(result)
+        this.message = result.data
+        this.loading = false
+      })
+        .catch((error) => {
+          console.log(error)
+          this.$router.push('/error')
         })
     }
   }
