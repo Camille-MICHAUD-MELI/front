@@ -150,6 +150,7 @@ export default {
   methods: {
     async logout () {
       await this.$auth.logout().then(() => {
+        this.$store.commit('reload', 1)
         this.$router.push('/login')
       })
     }

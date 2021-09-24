@@ -35,7 +35,7 @@
         <v-row>
           <template v-for="n in message">
             <v-col
-              :key="n"
+              :key="n.id + 'message'"
               class="mt-2"
               cols="12"
             >

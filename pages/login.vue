@@ -112,6 +112,10 @@ export default {
     ]
   }),
   mounted () {
+    if (this.$store.state.reload === 1) {
+      this.$store.commit('reload', 0)
+      location.reload()
+    }
     if (localStorage.name) {
       this.token = localStorage.token
     }

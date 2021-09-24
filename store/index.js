@@ -1,5 +1,6 @@
 export const state = () => ({
   counter: 0,
+  reload: 0,
   idMessage: null,
   token: null
 })
@@ -13,5 +14,8 @@ export const mutations = {
   },
   setIdmessage (state, idMessage) {
     state.id_message = idMessage
+  },
+  setReload (state, reload) {
+    state.reload = reload
   }
 }

@@ -166,7 +166,7 @@
                      >
                         <v-icon
                         :color="like_color ? 'red' : 'grey'"
-                        @click="like_color = !like_color"
+                        @click="like_color = !like_color; setFav()"
                         >
                             mdi-heart
                         </v-icon>
@@ -235,6 +235,10 @@ export default {
     }
   },
   methods: {
+    setFav () {
+      this.$axios.post('http://127.0.0.1:8000/fav/message/' + this.$route.params.id + '/' + this.$auth.user.id).then((result) => {
+      })
+    },
     patchpostHandler () {
       const data = {
         title: this.title,
