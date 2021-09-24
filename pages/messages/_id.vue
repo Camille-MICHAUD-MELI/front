@@ -46,7 +46,7 @@
                 ></v-textarea>
             </v-container>
             <v-btn icon><v-icon color="red" @click="dialogb = !dialogb">mdi-close</v-icon></v-btn>
-            <v-btn color="primary white--text" @click="commentHandler">SEND</v-btn>
+            <v-btn color="primary white--text" :loading="loading" :disabled="loading" @click="commentHandler(); loader = 'loading'">SEND</v-btn>
         </v-container>
       </v-card>
     </v-dialog>
@@ -73,6 +73,7 @@
             <v-text-field
             name="title"
             label="Title"
+            v-model="title"
             type="text"
             ></v-text-field>
             <v-container fluid>
@@ -86,7 +87,7 @@
                 ></v-textarea>
             </v-container>
             <v-btn icon><v-icon color="red" @click="dialog = !dialog">mdi-close</v-icon></v-btn>
-            <v-btn color="primary white--text" @click="patchpostHandler">EDIT</v-btn>
+            <v-btn color="primary white--text" :loading="loading" :disabled="loading" @click="patchpostHandler(); loader='loading'">EDIT</v-btn>
         </v-container>
       </v-card>
     </v-dialog>
@@ -169,7 +170,6 @@
                         >
                             mdi-heart
                         </v-icon>
-                        {{ test }}
                      </v-btn>
                      <v-btn
                      icon
@@ -179,6 +179,26 @@
                      <v-flex align-self-center><v-btn @click="dialog = !dialog" v-if="$auth.user.id === message.user.id" color="primary"><v-icon left>mdi-pencil</v-icon>Edit</v-btn></v-flex>
                      </v-col>
                     </v-card>
+                    <v-container>
+                      <v-row>
+                        <template v-for="n in comment">
+                          <v-col
+                            :key="n"
+                            class="mt-2"
+                            cols="12"
+                          >
+                            <v-card class="elevation-12" shaped>
+                              <v-toolbar dark color="primary" shaped>
+                                <v-toolbar-title>{{ n.title }}</v-toolbar-title>
+                              </v-toolbar>
+                                <v-card-text text-h5 font-weight-bold>
+                                    {{ n.corpse }}
+                                </v-card-text>
+                            </v-card>
+                          </v-col>
+                        </template>
+                      </v-row>
+                    </v-container>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -193,7 +213,9 @@ export default {
   },
   data: () => ({
     loading: true,
+    loader: null,
     message: null,
+    comment: null,
     title: null,
     corpse: null,
     snackbar: false,
@@ -201,10 +223,17 @@ export default {
     dialog: false,
     dialogb: false,
     click: null,
+    attrs: null,
     test: 6,
     like_color: null,
     comment_color: null
   }),
+  watch: {
+    loader () {
+      const l = this.loader
+      this[l] = !this[l]
+    }
+  },
   methods: {
     patchpostHandler () {
       const data = {
@@ -217,11 +246,10 @@ export default {
       if (data.corpse === null) {
         data.corpse = this.message.corpse
       }
-      console.log(data)
       this.$axios.patch('http://127.0.0.1:8000/message/' + this.$route.params.id, data).then((result) => {
-        console.log(result)
         this.snackbar = true
         this.dialog = false
+        this.loading = null
         setTimeout(() => {
           location.reload()
         }, 2000)
@@ -229,6 +257,7 @@ export default {
         .catch((error) => {
           console.log(error)
           this.snackbarE = true
+          this.loading = null
         })
     },
     commentHandler () {
@@ -236,10 +265,10 @@ export default {
         title: this.title,
         corpse: this.corpse
       }
-      console.log(data)
       this.$axios.post('http://127.0.0.1:8000/commentpost/' + this.$route.params.id, data).then((result) => {
-        console.log(result)
         this.snackbar = true
+        this.loading = false
+        this.loading = null
         setTimeout(() => {
           location.reload()
         }, 2000)
@@ -247,12 +276,13 @@ export default {
         .catch((error) => {
           console.log(error)
           this.snackbarE = true
+          this.loading = null
         })
     },
     postHandler () {
-      this.$axios.get('http://127.0.0.1:8000/message/' + this.$route.params.id).then((result) => {
-        console.log(result)
-        this.message = result.data
+      this.$axios.get('http://127.0.0.1:8000/message-comment/' + this.$route.params.id).then((result) => {
+        this.message = result.data.message
+        this.comment = result.data.comment
         this.loading = false
       })
         .catch((error) => {

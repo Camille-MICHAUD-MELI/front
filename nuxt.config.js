@@ -71,6 +71,7 @@ export default {
         endpoints: {
           user: { url: '/gettokenuser', method: 'get' },
           login: { url: '/login_check', method: 'post' },
+          register: { url: '/register', method: 'post'},
           logout: { url: '/logout', method: 'post' }
         }
       }

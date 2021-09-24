@@ -109,9 +109,7 @@ export default {
         title: this.title,
         corpse: this.corpse
       }
-      console.log(data)
       this.$axios.post('http://127.0.0.1:8000/messagepost', data).then((result) => {
-        console.log(result)
         this.snackbar = true
         setTimeout(() => {
           this.$router.push('/')

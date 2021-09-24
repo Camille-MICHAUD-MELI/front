@@ -62,6 +62,7 @@
                   :value="$auth.user ? $auth.user.username :''"
                   :placeholder="$auth.user ? $auth.user.username : ''"
                   required
+                  v-model="username"
               ></v-text-field>
               <v-text-field
                   name="email"
@@ -69,6 +70,7 @@
                   type="text"
                   :value="$auth.user ? $auth.user.email :''"
                   :placeholder="$auth.user ? $auth.user.email : ''"
+                  v-model="email"
                   required
               ></v-text-field>
               <v-container fluid>
@@ -76,10 +78,11 @@
                 name="bio"
                 label="Bio"
                 type="text"
-                clearable="true"
+                clearable
                 autocomplete="test"
                 :value="$auth.user ? $auth.user.bio :''"
                 :placeholder="$auth.user ? $auth.user.bio : ''"
+                v-model="bio"
               ></v-textarea>
               </v-container>
               <span class="material-icons">
@@ -90,7 +93,7 @@
                 v-model="password"
                 required
                 :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="() => (value = !value)"
+                @click:append="value = !value"
                 :type="value ? 'text' : 'password'"
               >
               </v-text-field>
@@ -101,6 +104,7 @@
                   type="text"
                   :value="$auth.user ? $auth.user.phone :''"
                   :placeholder="$auth.user ? $auth.user.phone : ''"
+                  v-model="phone"
               ></v-text-field>
               <v-text-field
                   name="city"
@@ -108,6 +112,7 @@
                   type="text"
                   :placeholder="$auth.user ? $auth.user.city : ''"
                   :value="$auth.user ? $auth.user.city :''"
+                  v-model="city"
               ></v-text-field>
               <v-text-field
                   name="address"
@@ -115,6 +120,7 @@
                   type="text"
                   :placeholder="$auth.user ? $auth.user.address : ''"
                   :value="$auth.user ? $auth.user.address :''"
+                  v-model="address"
               ></v-text-field>
               <v-text-field
                   name="zipcode"
@@ -139,7 +145,6 @@
               ><v-btn
                 icon
                 color="red white--text"
-                @click="account"
               ><v-icon>mdi-close</v-icon>
               </v-btn></nuxt-link>
               <v-spacer></v-spacer>
@@ -161,6 +166,8 @@
 export default {
   data: () => ({
     snackbar: false,
+    snackbarE: false,
+    account: null,
     drawer: null,
     hover: false,
     is_focus: false,
@@ -171,6 +178,7 @@ export default {
     password: null,
     valuee: '',
     custom: true,
+    click: true,
     items: [
       { title: 'Post', icon: 'mdi-view-dashboard', route: '/post' },
       { title: 'Comment', icon: 'mdi-message-text', route: '/comment' },
@@ -217,9 +225,7 @@ export default {
       if (data.country === null) {
         data.country = this.$auth.user.country
       }
-      console.log(data)
       this.$axios.patch('http://127.0.0.1:8000/users/' + this.$auth.user.id, data).then((result) => {
-        console.log(result)
         this.snackbar = true
         setTimeout(() => {
           this.$router.push('/account')

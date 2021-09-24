@@ -91,7 +91,7 @@
                 <v-text-field
                     name="phone"
                     label="Phone *"
-                    type="text"
+                    type="number"
                     v-model="phone"
                 ></v-text-field>
                 <v-text-field
@@ -109,13 +109,13 @@
                 <v-text-field
                     name="zipcode"
                     label="Zipcode *"
-                    type="text"
+                    type="number"
                     v-model="zipcode"
                 ></v-text-field>
                 <v-text-field
                   name="country"
                   label="Country *"
-                  type="text"
+                  type="letters"
                   v-model="country"
                 ></v-text-field>
                             * = Optional
@@ -124,7 +124,12 @@
                      <v-card-actions>
                         <nuxt-link to="/login"><v-btn color="primary">Already Registered ?</v-btn></nuxt-link>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" @click="signupHandler">Signup</v-btn>
+                        <v-btn
+                        color="primary"
+                        :loading="loading"
+                        :disabled="loading || username ? false :true && email ? '' :true && password ? '' :true"
+                        @click="signupHandler(); loader = 'loading'"
+                        >Signup</v-btn>
                      </v-card-actions>
                   </v-card>
                </v-flex>
@@ -139,12 +144,22 @@ export default {
   auth: false,
   name: 'Register',
   data: () => ({
+    loading: false,
+    loader: null,
     snackbar: false,
     snackbarE: false,
     drawer: null,
     hover: false,
     is_focus: false,
     username: '',
+    zipcode: null,
+    city: null,
+    country: null,
+    address: null,
+    phone: null,
+    password: null,
+    bio: null,
+    email: null,
     value: null,
     items: [
       { title: 'Post', icon: 'mdi-view-dashboard', route: '/post' },
@@ -155,6 +170,12 @@ export default {
   created () {
     if (this.$auth.user !== null) {
       this.$router.push('/')
+    }
+  },
+  watch: {
+    loader () {
+      const l = this.loader
+      this[l] = !this[l]
     }
   },
   methods: {
@@ -170,9 +191,7 @@ export default {
         country: this.country,
         address: this.address
       }
-      console.log(data)
       this.$axios.post('http://127.0.0.1:8000/register', data).then((result) => {
-        console.log(result)
         this.snackbar = true
         setTimeout(() => {
           this.$router.push('/login')
@@ -180,6 +199,7 @@ export default {
       })
         .catch((error) => {
           console.log(error)
+          this.loading = null
           this.snackbarE = true
         })
     }

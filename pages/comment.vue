@@ -75,9 +75,7 @@ export default {
         post_title: this.post_title,
         corpse: this.corpse
       }
-      console.log(data)
       this.$axios.post('http://127.0.0.1:8000/commentpost', data).then((result) => {
-        console.log(result)
         this.snackbar = true
         setTimeout(() => {
           this.$router.push('/')

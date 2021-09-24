@@ -9,6 +9,41 @@
 
       <v-icon>mdi-triangle</v-icon>
     </v-system-bar>
+
+  <v-snackbar
+      v-model="snackbar"
+      color="white black--text"
+    >
+    Login success
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="primary"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
+    <v-snackbar
+      v-model="snackbarE"
+      color="red white--text"
+    >
+    An Error as occured
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbarE = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
     <v-main>
          <v-container fluid fill-height>
             <v-layout align-center justify-center>
@@ -39,7 +74,12 @@
                      <v-card-actions>
                         <nuxt-link to="/register"><v-btn color="primary">New ?</v-btn></nuxt-link>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" @click="loginHandler">Login</v-btn>
+                        <v-btn
+                        color="primary"
+                        :loading="loading"
+                        :disabled="loading"
+                        @click="loginHandler(); loader = 'loading'"
+                        >LOGIN</v-btn>
                      </v-card-actions>
                   </v-card>
                </v-flex>
@@ -52,7 +92,11 @@
 <script>
 export default {
   data: () => ({
+    loader: null,
+    loading: false,
+    snackbarE: false,
     snackbar: false,
+    attrs: null,
     drawer: null,
     hover: false,
     is_focus: false,
@@ -75,6 +119,10 @@ export default {
   watch: {
     name (newToken) {
       localStorage.token = newToken
+    },
+    loader () {
+      const l = this.loader
+      this[l] = !this[l]
     }
   },
 
@@ -84,15 +132,16 @@ export default {
         username: this.username,
         password: this.password
       }
-      console.log(data)
+      this.logreq = true
       this.$auth.loginWith('local', { data }).then((result) => {
-        console.log(result)
+        this.snackbar = true
         this.$store.commit('setToken', result.data.token)
         this.$router.push('/')
       })
         .catch((error) => {
           console.log(error)
-          this.snackbar = true
+          this.loading = null
+          this.snackbarE = true
         })
     }
   }

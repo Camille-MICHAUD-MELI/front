@@ -93,6 +93,7 @@ export default {
     corpse: null,
     snackbar: false,
     snackbarE: false,
+    attrs: null,
     dialog: false,
     click: null,
     test: 6,
@@ -102,7 +103,6 @@ export default {
   methods: {
     postHandler () {
       this.$axios.get('http://127.0.0.1:8000/user/' + this.$route.params.id).then((result) => {
-        console.log(result)
         this.user = result.data
         this.loading = false
       })
@@ -116,9 +116,7 @@ export default {
         title: this.title,
         corpse: this.corpse
       }
-      console.log(data)
       this.$axios.post('http://127.0.0.1:8000/commentpost', data).then((result) => {
-        console.log(result)
         this.snackbar = true
         setTimeout(() => {
           location.reload()

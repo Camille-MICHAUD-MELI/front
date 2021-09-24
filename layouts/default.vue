@@ -89,20 +89,20 @@
       </v-container>
       <v-list>
         <v-list-item
-          v-for="item in items"
-          :key="item.title"
+          v-for="n in items"
+          :key="n + n.id"
           link
         ><v-btn
           block
           color="primary"
           dark
-          :to='item.route'>
+          :to='n.route'>
           <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>{{ n.icon }}</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title>{{ n.title }}</v-list-item-title>
           </v-list-item-content>
 
         </v-btn></v-list-item>
@@ -139,12 +139,11 @@
 export default {
   data: () => ({
     drawer: null,
-    click: null,
+    click: true,
     hover: false,
     is_focus: false,
     items: [
       { title: 'Post', icon: 'mdi-view-dashboard', route: '/post' },
-      { title: 'Comment', icon: 'mdi-message-text', route: '/comment' },
       { title: 'Account', icon: 'mdi-account-box', route: '/account' }
     ]
   }),
