@@ -14,8 +14,5 @@ export const mutations = {
   },
   setIdmessage (state, idMessage) {
     state.id_message = idMessage
-  },
-  setReload (state, reload) {
-    state.reload = reload
   }
 }

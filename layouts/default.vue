@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-system-bar class="primary" app>
-      <v-spacer></v-spacer>
+      <v-spacer />
 
       <v-icon>mdi-square</v-icon>
 
@@ -17,33 +17,36 @@
       app
     >
       <v-btn icon>
-        <nuxt-link class="white--" to="/"><v-icon color="black">mdi-home</v-icon></nuxt-link>
+        <nuxt-link class="white--" to="/">
+          <v-icon color="black">
+            mdi-home
+          </v-icon>
+        </nuxt-link>
       </v-btn>
 
       <v-toolbar-title>Grade Hub</v-toolbar-title>
 
-      <v-spacer></v-spacer>
+      <v-spacer />
 
       <v-input
-      mx-4
+        mx-4
       >
         <v-text-field
-        v-model="click"
-        prepend-inner-icon="mdi-magnify"
-        @blur="is_focus = false"
-        @focus="is_focus = true"
-        :background-color="is_focus ? 'black' :'white'"
-        color="primary"
-        class="mt-12"
-        light
-        enclosed
-        outlined
-        filled
-        label="Que cherchez-vous ?"
-        dense
-        app
-        >
-        </v-text-field>
+          v-model="click"
+          prepend-inner-icon="mdi-magnify"
+          :background-color="is_focus ? 'black' :'white'"
+          color="primary"
+          class="mt-12"
+          light
+          enclosed
+          outlined
+          filled
+          label="Que cherchez-vous ?"
+          dense
+          app
+          @blur="is_focus = false"
+          @focus="is_focus = true"
+        />
       </v-input>
 
       <v-hover v-model="hover">
@@ -54,15 +57,16 @@
           :disabled="$auth.user ? true : false"
         >
           <nuxt-link
-          class="white--"
-          to="/login"
-          style="text-decoration: none"
-          >{{ $auth.user ? 'CONNECTÉ' :'CONNEXION' }}</nuxt-link>
+            class="white--"
+            to="/login"
+            style="text-decoration: none"
+          >
+            {{ $auth.user ? 'CONNECTÉ' :'CONNEXION' }}
+          </nuxt-link>
         </v-btn>
       </v-hover>
 
-      <v-app-bar-nav-icon class="black--text" @click="drawer = !drawer"></v-app-bar-nav-icon>
-
+      <v-app-bar-nav-icon class="black--text" @click="drawer = !drawer" />
     </v-app-bar>
 
     <v-navigation-drawer
@@ -74,7 +78,7 @@
       temporary
       right
     >
-    <v-list-item>
+      <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6">
             Menu
@@ -85,45 +89,46 @@
         </v-list-item-content>
       </v-list-item>
       <v-container>
-        <v-divider class="thirdary"></v-divider>
+        <v-divider class="thirdary" />
       </v-container>
       <v-list>
         <v-list-item
           v-for="n in items"
-          :key="n + n.id"
+          :key="n.title + 'items'"
           link
-        ><v-btn
-          block
-          color="primary"
-          dark
-          :to='n.route'>
-          <v-list-item-icon>
-            <v-icon>{{ n.icon }}</v-icon>
-          </v-list-item-icon>
+        >
+          <v-btn
+            block
+            color="primary"
+            dark
+            :to="n.route"
+          >
+            <v-list-item-icon>
+              <v-icon>{{ n.icon }}</v-icon>
+            </v-list-item-icon>
 
-          <v-list-item-content>
-            <v-list-item-title>{{ n.title }}</v-list-item-title>
-          </v-list-item-content>
-
-        </v-btn></v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>{{ n.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-btn>
+        </v-list-item>
       </v-list>
       <v-container>
         <v-divider
-        class="thirdary"
-        >
-        </v-divider>
+          class="thirdary"
+        />
       </v-container>
 
-      <template v-slot:append>
+      <template #append>
         <div class="pa-2">
           <v-hover
-          class="pr-2 ma-0"
-          v-model="hover"
+            v-model="hover"
+            class="pr-2 ma-0"
           >
             <v-btn
-            :color="hover ? 'primary' :'white'"
-            block
-            @click="logout"
+              :color="hover ? 'primary' :'white'"
+              block
+              @click="logout"
             >
               Logout
             </v-btn>
@@ -131,7 +136,7 @@
         </div>
       </template>
     </v-navigation-drawer>
-  <Nuxt />
+    <Nuxt />
   </v-app>
 </template>
 

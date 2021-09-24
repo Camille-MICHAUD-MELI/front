@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-system-bar class="primary" app>
-      <v-spacer></v-spacer>
+      <v-spacer />
 
       <v-icon>mdi-square</v-icon>
 
@@ -11,48 +11,50 @@
     </v-system-bar>
 
     <v-main>
-         <v-container fluid fill-height>
-            <v-layout align-center justify-center>
-               <v-flex xs12 sm8 md4>
-                  <v-card class="elevation-12">
-                     <v-toolbar dark color="primary">
-                        <v-toolbar-title>Comment Form</v-toolbar-title>
-                     </v-toolbar>
-                     <v-card-text>
-                        <v-form>
-                            <v-text-field
-                            name="title_origine"
-                            label="Title of the Original Post"
-                            type="text"
-                            v-model="post_title"
-                          ></v-text-field>
-                            <v-text-field
-                            name="title"
-                            label="Title"
-                            type="text"
-                            v-model="title"
-                            ></v-text-field>
-                           <v-container fluid>
-                              <v-textarea
-                                name="corpse"
-                                filled
-                                label="Message"
-                                auto-grow
-                                class="pa-0 ma-0"
-                                v-model="corpse"
-                              ></v-textarea>
-                           </v-container>
-                        </v-form>
-                     </v-card-text>
-                     <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="primary" @click="commentHandler">POST</v-btn>
-                     </v-card-actions>
-                  </v-card>
-               </v-flex>
-            </v-layout>
-         </v-container>
-      </v-main>
+      <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <v-toolbar dark color="primary">
+                <v-toolbar-title>Comment Form</v-toolbar-title>
+              </v-toolbar>
+              <v-card-text>
+                <v-form>
+                  <v-text-field
+                    v-model="post_title"
+                    name="title_origine"
+                    label="Title of the Original Post"
+                    type="text"
+                  />
+                  <v-text-field
+                    v-model="title"
+                    name="title"
+                    label="Title"
+                    type="text"
+                  />
+                  <v-container fluid>
+                    <v-textarea
+                      v-model="corpse"
+                      name="corpse"
+                      filled
+                      label="Message"
+                      auto-grow
+                      class="pa-0 ma-0"
+                    />
+                  </v-container>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer />
+                <v-btn color="primary" @click="commentHandler">
+                  POST
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-main>
   </v-app>
 </template>
 
@@ -81,8 +83,7 @@ export default {
           this.$router.push('/')
         }, 2000)
       })
-        .catch((error) => {
-          console.log(error)
+        .catch(() => {
           this.snackbarE = true
         })
     }

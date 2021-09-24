@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-system-bar class="primary" app>
-      <v-spacer></v-spacer>
+      <v-spacer />
 
       <v-icon>mdi-square</v-icon>
 
@@ -10,12 +10,12 @@
       <v-icon>mdi-triangle</v-icon>
     </v-system-bar>
 
-   <v-snackbar
+    <v-snackbar
       v-model="snackbar"
       color="white black--text"
     >
-    Your message has been posted
-      <template v-slot:action="{ attrs }">
+      Your message has been posted
+      <template #action="{ attrs }">
         <v-btn
           color="primary"
           text
@@ -31,8 +31,8 @@
       v-model="snackbarE"
       color="red white--text"
     >
-    An Error as occured
-      <template v-slot:action="{ attrs }">
+      An Error as occured
+      <template #action="{ attrs }">
         <v-btn
           color="white"
           text
@@ -44,45 +44,47 @@
       </template>
     </v-snackbar>
 
-          <v-main>
-         <v-container fluid fill-height>
-            <v-layout align-center justify-center>
-               <v-flex xs12 sm8 md4>
-                  <v-card class="elevation-12">
-                     <v-toolbar dark color="primary">
-                        <v-toolbar-title>Post Form</v-toolbar-title>
-                     </v-toolbar>
-                     <v-card-text>
-                        <v-form>
-                          <v-container fluid>
-                            <v-text-field
-                            name="title"
-                            label="Title"
-                            type="text"
-                            v-model="title"
-                            ></v-text-field>
-                           <v-container fluid>
-                              <v-textarea
-                                name="corpse"
-                                filled
-                                label="Message"
-                                auto-grow
-                                class="pa-0 ma-0"
-                                v-model="corpse"
-                              ></v-textarea>
-                           </v-container>
-                          </v-container>
-                        </v-form>
-                     </v-card-text>
-                     <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="primary" @click="postHandler">POST</v-btn>
-                     </v-card-actions>
-                  </v-card>
-               </v-flex>
-            </v-layout>
-         </v-container>
-      </v-main>
+    <v-main>
+      <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <v-toolbar dark color="primary">
+                <v-toolbar-title>Post Form</v-toolbar-title>
+              </v-toolbar>
+              <v-card-text>
+                <v-form>
+                  <v-container fluid>
+                    <v-text-field
+                      v-model="title"
+                      name="title"
+                      label="Title"
+                      type="text"
+                    />
+                    <v-container fluid>
+                      <v-textarea
+                        v-model="corpse"
+                        name="corpse"
+                        filled
+                        label="Message"
+                        auto-grow
+                        class="pa-0 ma-0"
+                      />
+                    </v-container>
+                  </v-container>
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer />
+                <v-btn color="primary" :loading="loading" :disabled="loading" @click="postHandler">
+                  POST
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-main>
   </v-app>
 </template>
 
@@ -94,6 +96,7 @@ export default {
     corpse: null,
     title: null,
     drawer: null,
+    loading: false,
     hover: false,
     value: null,
     is_focus: false,
@@ -109,14 +112,16 @@ export default {
         title: this.title,
         corpse: this.corpse
       }
+      this.loading = true
       this.$axios.post('http://127.0.0.1:8000/messagepost', data).then((result) => {
         this.snackbar = true
+        this.loading = false
         setTimeout(() => {
           this.$router.push('/')
         }, 2000)
       })
-        .catch((error) => {
-          console.log(error)
+        .catch(() => {
+          this.loading = false
           this.snackbarE = true
         })
     }

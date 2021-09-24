@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-system-bar class="primary" app>
-      <v-spacer></v-spacer>
+      <v-spacer />
 
       <v-icon>mdi-square</v-icon>
 
@@ -14,8 +14,8 @@
       v-model="snackbar"
       color="white black--text"
     >
-    Modification has been done
-      <template v-slot:action="{ attrs }">
+      Modification has been done
+      <template #action="{ attrs }">
         <v-btn
           color="primary"
           text
@@ -31,8 +31,8 @@
       v-model="snackbarE"
       color="red white--text"
     >
-    An Error as occured
-      <template v-slot:action="{ attrs }">
+      An Error as occured
+      <template #action="{ attrs }">
         <v-btn
           color="white"
           text
@@ -44,121 +44,127 @@
       </template>
     </v-snackbar>
 
-  <v-main>
-    <v-container fluid fill-height>
-      <v-layout align-center justify-center>
-        <v-flex xs12 sm8 md4>
-          <v-card class="elevation-12">
-            <v-toolbar dark color="primary">
-              <v-toolbar-title>Modification du Profil</v-toolbar-title>
-            </v-toolbar>
-            <v-card-text>
-              <v-form>
-                <v-text-field
-                  name="pseudo"
-                  label="Pseudo"
-                  type="text"
-                  counter="25"
-                  :value="$auth.user ? $auth.user.username :''"
-                  :placeholder="$auth.user ? $auth.user.username : ''"
-                  required
-                  v-model="username"
-              ></v-text-field>
-              <v-text-field
-                  name="email"
-                  label="Email"
-                  type="text"
-                  :value="$auth.user ? $auth.user.email :''"
-                  :placeholder="$auth.user ? $auth.user.email : ''"
-                  v-model="email"
-                  required
-              ></v-text-field>
-              <v-container fluid>
-              <v-textarea
-                name="bio"
-                label="Bio"
-                type="text"
-                clearable
-                autocomplete="test"
-                :value="$auth.user ? $auth.user.bio :''"
-                :placeholder="$auth.user ? $auth.user.bio : ''"
-                v-model="bio"
-              ></v-textarea>
-              </v-container>
-              <span class="material-icons">
-              <v-text-field
-                id="password"
-                name="password"
-                label="Password"
-                v-model="password"
-                required
-                :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="value = !value"
-                :type="value ? 'text' : 'password'"
-              >
-              </v-text-field>
-                </span>
-              <v-text-field
-                  name="phone"
-                  label="Phone"
-                  type="text"
-                  :value="$auth.user ? $auth.user.phone :''"
-                  :placeholder="$auth.user ? $auth.user.phone : ''"
-                  v-model="phone"
-              ></v-text-field>
-              <v-text-field
-                  name="city"
-                  label="City"
-                  type="text"
-                  :placeholder="$auth.user ? $auth.user.city : ''"
-                  :value="$auth.user ? $auth.user.city :''"
-                  v-model="city"
-              ></v-text-field>
-              <v-text-field
-                  name="address"
-                  label="Address"
-                  type="text"
-                  :placeholder="$auth.user ? $auth.user.address : ''"
-                  :value="$auth.user ? $auth.user.address :''"
-                  v-model="address"
-              ></v-text-field>
-              <v-text-field
-                  name="zipcode"
-                  label="Zipcode"
-                  :placeholder="$auth.user ? $auth.user.zipcode : ''"
-                  type="text"
-                  :value="$auth.user ? $auth.user.zipcode :''"
-              ></v-text-field>
-              <v-text-field
-                name="country"
-                label="Country"
-                type="text"
-                :placeholder="$auth.user ? $auth.user.country : ''"
-                :value="$auth.user ? $auth.user.country :''"
-              ></v-text-field>
-              </v-form>
-            </v-card-text>
-            <v-card-actions>
-              <nuxt-link
-              to="/account"
-              style="text-decoration: none"
-              ><v-btn
-                icon
-                color="red white--text"
-              ><v-icon>mdi-close</v-icon>
-              </v-btn></nuxt-link>
-              <v-spacer></v-spacer>
-              <v-btn
-              color="primary"
-              @click="accountChange"
-              id="$auth.user.id"
-              >Change modifications</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
-   </v-main>
+    <v-main>
+      <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <v-toolbar dark src="https://cdn.vuetifyjs.com/images/cards/forest-art.jpg">
+                <v-toolbar-title>Modification du Profil</v-toolbar-title>
+              </v-toolbar>
+              <v-card-text>
+                <v-form>
+                  <v-text-field
+                    v-model="username"
+                    name="pseudo"
+                    label="Pseudo"
+                    type="text"
+                    counter="25"
+                    :value="$auth.user ? $auth.user.username :''"
+                    :placeholder="$auth.user ? $auth.user.username : ''"
+                    required
+                  />
+                  <v-text-field
+                    v-model="email"
+                    name="email"
+                    label="Email"
+                    type="text"
+                    :value="$auth.user ? $auth.user.email :''"
+                    :placeholder="$auth.user ? $auth.user.email : ''"
+                    required
+                  />
+                  <v-container fluid>
+                    <v-textarea
+                      v-model="bio"
+                      name="bio"
+                      label="Bio"
+                      type="text"
+                      clearable
+                      autocomplete="test"
+                      :value="$auth.user ? $auth.user.bio :''"
+                      :placeholder="$auth.user ? $auth.user.bio : ''"
+                    />
+                  </v-container>
+                  <span class="material-icons">
+                    <v-text-field
+                      id="password"
+                      v-model="password"
+                      name="password"
+                      label="Password"
+                      required
+                      :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="value ? 'text' : 'password'"
+                      @click:append="value = !value"
+                    />
+                  </span>
+                  <v-text-field
+                    v-model="phone"
+                    name="phone"
+                    label="Phone"
+                    type="text"
+                    :value="$auth.user ? $auth.user.phone :''"
+                    :placeholder="$auth.user ? $auth.user.phone : ''"
+                  />
+                  <v-text-field
+                    v-model="city"
+                    name="city"
+                    label="City"
+                    type="text"
+                    :placeholder="$auth.user ? $auth.user.city : ''"
+                    :value="$auth.user ? $auth.user.city :''"
+                  />
+                  <v-text-field
+                    v-model="address"
+                    name="address"
+                    label="Address"
+                    type="text"
+                    :placeholder="$auth.user ? $auth.user.address : ''"
+                    :value="$auth.user ? $auth.user.address :''"
+                  />
+                  <v-text-field
+                    v-model="zipcode"
+                    name="zipcode"
+                    label="Zipcode"
+                    :placeholder="$auth.user ? $auth.user.zipcode : ''"
+                    type="text"
+                    :value="$auth.user ? $auth.user.zipcode :''"
+                  />
+                  <v-text-field
+                    v-model="country"
+                    name="country"
+                    label="Country"
+                    type="text"
+                    :placeholder="$auth.user ? $auth.user.country : ''"
+                    :value="$auth.user ? $auth.user.country :''"
+                  />
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <nuxt-link
+                  to="/account"
+                  style="text-decoration: none"
+                >
+                  <v-btn
+                    icon
+                    color="red white--text"
+                  >
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+                </nuxt-link>
+                <v-spacer />
+                <v-btn
+                  id="$auth.user.id"
+                  color="primary"
+                  @click="accountChange"
+                >
+                  Change modifications
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-main>
   </v-app>
 </template>
 
@@ -169,6 +175,10 @@ export default {
     snackbarE: false,
     account: null,
     drawer: null,
+    bio: null,
+    phone: null,
+    city: null,
+    address: null,
     hover: false,
     is_focus: false,
     value: null,
@@ -177,6 +187,8 @@ export default {
     token: '',
     password: null,
     valuee: '',
+    country: null,
+    zipcode: null,
     custom: true,
     click: true,
     items: [
@@ -228,11 +240,10 @@ export default {
       this.$axios.patch('http://127.0.0.1:8000/users/' + this.$auth.user.id, data).then((result) => {
         this.snackbar = true
         setTimeout(() => {
-          this.$router.push('/account')
+          this.$router.push('/')
         }, 3000)
       })
-        .catch((error) => {
-          console.log(error)
+        .catch(() => {
           this.snackbarE = true
         })
     }
